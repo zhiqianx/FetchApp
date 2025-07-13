@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Fetch App</string>
+    <string name="list_header">List ID: %1$d (%2$d items)</string>
+    <string name="item_id">ID: %1$d</string>
+    <string name="item_icon_description">Item icon</string>
+    <string name="placeholder_item_name">Item Name</string>
+    <string name="placeholder_item_id">ID: 123</string>
 </resources>

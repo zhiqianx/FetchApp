@@ -79,6 +79,11 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setupSwipeRefresh() {
         binding.swipeRefresh.setOnRefreshListener {
+            println("REFRESH: Calling resetToCollapsed")
+
+            val currentItems = viewModel.items.value ?: emptyList()
+            adapter.resetToCollapsed(currentItems)
+
             viewModel.loadItems()
         }
     }

@@ -1,7 +1,6 @@
 package com.fetchapp.app.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -21,7 +20,7 @@ import com.fetchapp.app.databinding.ItemListItemBinding
 class ItemAdapter : ListAdapter<ItemAdapter.ListItem, RecyclerView.ViewHolder>(DiffCallback()) {
 
     // Track which groups are expanded (true = expanded, false = collapsed)
-    private val expandedGroups = mutableSetOf<Int>()
+    internal val expandedGroups = mutableSetOf<Int>()
 
     // Add this interface for header click callbacks
     interface OnHeaderClickListener {
@@ -160,15 +159,18 @@ class ItemAdapter : ListAdapter<ItemAdapter.ListItem, RecyclerView.ViewHolder>(D
             // Check if this group is currently expanded
             val isExpanded = adapter.expandedGroups.contains(header.listId)
             // Set the header text showing listId and how many items
-            binding.headerText.text = "List ID: ${header.listId} (${header.itemCount} items)"
-
-            // Set the expand/collapse icon
-            binding.expandIcon.setImageResource(
-                if (isExpanded) R.drawable.ic_expand_less else R.drawable.ic_expand_more
+            binding.headerText.text = binding.root.context.getString(
+                R.string.list_header,
+                header.listId,
+                header.itemCount
             )
 
-            // Add rotation animation
-            binding.expandIcon.rotation = if (isExpanded) 180f else 0f
+            // Set the correct arrow state
+            if (isExpanded) {
+                binding.expandIcon.setImageResource(R.drawable.ic_expand_less)
+            } else {
+                binding.expandIcon.setImageResource(R.drawable.ic_expand_more)
+            }
 
             // Handle header clicks - CHECK CURRENT STATE, DON'T USE CAPTURED isExpanded
             binding.root.setOnClickListener {
@@ -211,7 +213,7 @@ class ItemAdapter : ListAdapter<ItemAdapter.ListItem, RecyclerView.ViewHolder>(D
             val item = itemData.item
             // Display the item name and id
             binding.itemName.text = item.name
-            binding.itemId.text = "ID: ${item.id}"
+            binding.itemId.text = binding.root.context.getString(R.string.item_id, item.id)
         }
     }
 
@@ -243,5 +245,40 @@ class ItemAdapter : ListAdapter<ItemAdapter.ListItem, RecyclerView.ViewHolder>(D
         override fun areContentsTheSame(oldItem: ListItem, newItem: ListItem): Boolean {
             return oldItem == newItem
         }
+    }
+
+    /**
+     * Forces all ViewHolders to rebind by incrementing a version counter.
+     * This ensures arrow states are properly updated.
+     */
+    fun forceRefresh() {
+        val currentList = currentList.toList() // Create a copy
+        submitList(null) // Clear the list
+        submitList(currentList) // Resubmit to force rebind
+    }
+
+    /**
+     * Resets all groups to collapsed state and refreshes the display.
+     *
+     * This method is called when the user pulls to refresh or retries after an error.
+     * It ensures the UI returns to the default state where all groups are collapsed,
+     * providing a consistent user experience.
+     *
+     * @param items The current list of items to redisplay in collapsed state
+     */
+    fun resetToCollapsed(items: List<Item>) {
+        // Clear expanded state
+        expandedGroups.clear()
+
+        // Force complete refresh
+        submitItems(items)
+
+        // Additional force refresh to ensure arrows update
+        post { forceRefresh() }
+    }
+
+    private fun post(action: () -> Unit) {
+        // Run on next frame to ensure timing
+        android.os.Handler(android.os.Looper.getMainLooper()).post(action)
     }
 }

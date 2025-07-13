@@ -16,6 +16,7 @@
         android:padding="16dp">
 
         <ImageView
+            android:contentDescription="@string/item_icon_description"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
@@ -38,7 +39,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/primary_text"
-                android:text="Item Name" />
+                android:text="@string/placeholder_item_name" />
 
             <TextView
                 android:id="@+id/itemId"
@@ -47,7 +48,7 @@
                 android:layout_marginTop="4dp"
                 android:textSize="12sp"
                 android:textColor="@color/secondary_text"
-                android:text="ID: 123" />
+                android:text="@string/placeholder_item_id" />
 
         </LinearLayout>
 

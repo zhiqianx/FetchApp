@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fetch Brand Colors -->
+    <color name="purple_200">#8E4B87</color>               <!-- Light Fetch purple -->
+    <color name="purple_500">#5D2A5B</color>               <!-- Main Fetch purple -->
+    <color name="purple_700">#2C1036</color>               <!-- Dark Fetch purple -->
+    <color name="orange_200">#FFB84D</color>               <!-- Light Fetch orange -->
+    <color name="orange_500">#F7931E</color>               <!-- Main Fetch orange -->
+    <color name="orange_700">#E8820D</color>               <!-- Dark Fetch orange -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Enhanced color palette -->
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+
+    <!-- Header colors -->
+    <color name="header_background_start">#5D2A5B</color>   <!-- Fetch purple -->
+    <color name="header_background_end">#8E4B87</color>     <!-- Light Fetch purple -->
+    <color name="header_text">#FFFFFF</color>
+    <color name="header_icon_color">#F7931E</color>         <!-- Fetch orange -->
+
+    <!-- Card colors -->
+    <color name="card_background">#FFFFFF</color>
+    <color name="item_icon_background">#FFF8F0</color>      <!-- Light orange tint -->
+    <color name="item_icon_color">#F7931E</color>           <!-- Fetch orange -->
+    <color name="item_accent_start">#F7931E</color>         <!-- Fetch orange -->
+    <color name="item_accent_end">#E8820D</color>           <!-- Dark orange -->
+
+    <!-- Background -->
+    <color name="background_color">#F8F5F8</color>          <!-- Light purple tint -->
+</resources>
